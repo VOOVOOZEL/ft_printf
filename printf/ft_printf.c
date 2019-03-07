@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 20:31:20 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 20:31:22 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
 int		print_format(char **format, va_list *ap, t_flags *f, t_length *l)
@@ -6,10 +18,12 @@ int		print_format(char **format, va_list *ap, t_flags *f, t_length *l)
 
 	if (!(tmp = ft_check_format(format, ap, f, l)) && !**format)
 		return (0);
+	if (!f->conv && !**format)
+		return (0);
 	f->s_size += ft_strlen(tmp);
 	write(1, tmp, f->s_size);
 	f->total_size += f->s_size;
-	if (tmp && f->precision != -5)
+	if (*tmp)
 		free(tmp);
 	return (1);
 }
@@ -20,7 +34,7 @@ int		ft_readformat(char **format, va_list ap)
 	t_length	l;
 
 	f.total_size = 0;
-	while (ft_strlen(*format) > 0 || **format)
+	while (ft_strlen(*format) > 0)
 	{
 		ft_reset(&f, &l);
 		if (**format == '%')

@@ -38,4 +38,8 @@ re: fclean all
 
 test:
 	@gcc -I include -o test test.c -L. -lftprintf
-	@./test
+	@./test | cat -e
+
+pupa:
+	@rm test
+	@gcc -I include -o test test.c -L. -lftprintf

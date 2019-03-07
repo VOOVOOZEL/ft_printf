@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 19:50:51 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 19:50:52 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 # include <stdarg.h>
@@ -86,7 +98,7 @@ char			*ft_wprint_1(wint_t warg);
 int				ft_check_conv_type(char **format, t_flags *f, t_length *l);
 int				ft_check_minwidth(char **format, va_list *ap, t_flags *f);
 int				ft_check_precision(va_list *ap, char **format, t_flags *f);
-void			ft_check_t_length(char **f, t_length *l);
+int				ft_check_t_length(char **f, t_length *l);
 char			*ft_check_format(char **format, va_list *ap, t_flags *f,
 															t_length *l);
 
@@ -98,6 +110,7 @@ void			ft_star(va_list *ap, t_flags *f);
 char			*ft_build(va_list *ap, t_flags *f, t_length *l);
 char			*ft_min_width(char *s, t_flags *f);
 char			*ft_extend_s(t_flags *f, char *s, int k, char left);
+void			ft_set_h(char **f, t_length *l);
 
 int				add_len(t_flags *f);
 char			*ft_invalid(char **format, t_flags *f);

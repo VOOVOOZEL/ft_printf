@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flags_others.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 19:47:13 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 19:49:49 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
 char	*ft_invalid(char **format, t_flags *f)
@@ -39,7 +51,7 @@ void	place_zero(char *s, char c, t_flags *f)
 			if (i > 0)
 				s[i] = c;
 		}
-		else
+		else if (s[i] == ' ')
 			s[i] = c;
 		i++;
 	}
@@ -62,7 +74,8 @@ void	ft_zero_fl(char *s, char c, t_flags *f)
 
 char	*ft_space(char *s, t_flags *f)
 {
-	int i;
+	int		i;
+	char	*p;
 
 	if (f->plus == 1)
 		return (s);
@@ -73,7 +86,11 @@ char	*ft_space(char *s, t_flags *f)
 		f->conv == 'd' || f->conv == 'e' || f->conv == 'E' ||
 		f->conv == 'f' || f->conv == 'F' || f->conv == 'g' ||
 		f->conv == 'G' || f->conv == 'i'))
-		return (ft_strjoin(" ", s));
+	{
+		p = ft_strjoin(" ", s);
+		free(s);
+		return (p);
+	}
 	else
 		return (s);
 }

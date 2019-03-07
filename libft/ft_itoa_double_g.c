@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa_double_g.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 20:37:34 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 20:38:19 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static char	*pure_s(long double nbr, int k)
@@ -35,10 +47,8 @@ char		*ft_itoa_double_g(long double nbr, int k)
 	i = ft_strlen(tmp);
 	dot = 0;
 	while (tmp)
-	{
 		if (tmp[dot++] == '.')
 			break ;
-	}
 	if (dot == i)
 		return (tmp);
 	while (i-- > dot)
@@ -49,6 +59,7 @@ char		*ft_itoa_double_g(long double nbr, int k)
 	if (i == dot + 1)
 		i = dot;
 	s = ft_strsub(tmp, 0, i + 1);
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	return (s);
 }

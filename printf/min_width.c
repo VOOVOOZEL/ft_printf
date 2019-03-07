@@ -1,8 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   min_width.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 19:51:22 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 19:52:23 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
+
+void	ft_passiv(t_flags *f, char *s)
+{
+	if (f->star == 1)
+		write(1, s, 1);
+	if (f->conv == 'c' || f->conv == 'C')
+		f->s_size--;
+	f->total_size++;
+}
 
 char	*ft_extend_s(t_flags *f, char *s, int k, char left)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (left == '+')
 	{
@@ -10,20 +31,19 @@ char	*ft_extend_s(t_flags *f, char *s, int k, char left)
 		{
 			tmp = s;
 			s = ft_strjoin(" ", tmp);
+			if (*tmp)
+				free(tmp);
 		}
 		return (s);
 	}
 	if (!ft_strlen(s))
-	{
-		write(1, s, 1);
-		if (f->conv == 'c' || f->conv == 'C')
-			f->s_size--;
-		f->total_size++;
-	}
+		ft_passiv(f, s);
 	while (k-- > 0)
 	{
 		tmp = s;
 		s = ft_strjoin(tmp, " ");
+		if (*tmp)
+			free(tmp);
 	}
 	return (s);
 }
@@ -41,6 +61,7 @@ char	*ft_min_width(char *s, t_flags *f)
 	{
 		tmp = s;
 		s = ft_strjoin("+", tmp);
+		free(tmp);
 		f->min_width -= 1;
 	}
 	if (i > f->min_width)

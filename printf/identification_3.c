@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   identification_3.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 20:09:02 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 20:09:34 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
 char	*ft_null_s(t_flags *f)
@@ -7,10 +19,10 @@ char	*ft_null_s(t_flags *f)
 	else if (f->precision == 0)
 	{
 		f->precision = -5;
-		return ("");
+		return (ft_strdup(""));
 	}
 	f->precision = -5;
-	return ("(null)");
+	return (ft_strdup("(null)"));
 }
 
 char	*ft_pws(va_list *ap, t_flags *f)
@@ -33,12 +45,12 @@ char	*ft_pws(va_list *ap, t_flags *f)
 		if ((int)(ft_count_wsize(*type.ws) + ft_strlen(s)) > f->precision
 			&& f->precision > 0)
 			break ;
-		tmp = ft_wprint(*type.ws);
+		tmp = ft_wprint(*type.ws++);
 		tmp2 = s;
 		s = ft_strjoin(tmp2, tmp);
-		++type.ws;
+		free(tmp);
+		free(tmp2);
 	}
-	free(tmp);
 	return (s);
 }
 

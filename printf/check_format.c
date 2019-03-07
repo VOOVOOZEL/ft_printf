@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_format.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 19:28:37 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 19:30:48 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
 int		ft_check_conv_type(char **format, t_flags *f, t_length *l)
@@ -10,7 +22,10 @@ int		ft_check_conv_type(char **format, t_flags *f, t_length *l)
 	if (**format != 's' && **format != 'd' && **format != 'i' &&
 		**format != 'o' && **format != 'p' && **format != 'u' &&
 		**format != 'x' && **format != 'X' && **format != 'c' &&
-		**format != 'e' && **format != '%' && **format != 'n')
+		**format != 'e' && **format != '%' && **format != 'n' &&
+		**format != 'U' && **format != 'D' && **format != 'O' &&
+		**format != 'S' && **format != 'C' && **format != 'G' &&
+		**format != 'E' && **format != 'f' && **format != 'F')
 		return (0);
 	f->conv = **format;
 	return (1);
@@ -62,15 +77,12 @@ int		ft_check_precision(va_list *ap, char **format, t_flags *f)
 	return (0);
 }
 
-void	ft_check_t_length(char **f, t_length *l)
+int		ft_check_t_length(char **f, t_length *l)
 {
 	if (**f == 'h')
 	{
-		(*f)++;
-		if (**f == 'h')
-			l->hh = 1;
-		else
-			l->h = 1;
+		ft_set_h(f, l);
+		return (1);
 	}
 	else if (**f == 'l')
 	{
@@ -79,6 +91,7 @@ void	ft_check_t_length(char **f, t_length *l)
 			l->ll = 1;
 		else
 			l->l = 1;
+		return (1);
 	}
 	else if (**f == 'j' || **f == 'z')
 	{
@@ -87,8 +100,10 @@ void	ft_check_t_length(char **f, t_length *l)
 		else if (**f == 'z')
 			l->z = 1;
 		(*f)++;
+		return (1);
 	}
 	l->none = 1;
+	return (0);
 }
 
 char	*ft_check_format(char **format, va_list *ap, t_flags *f, t_length *l)
@@ -98,12 +113,13 @@ char	*ft_check_format(char **format, va_list *ap, t_flags *f, t_length *l)
 		return (NULL);
 	while (!ft_check_conv_type(format, f, l))
 	{
-		ft_check_t_length(format, l);
 		if (ft_check_flag(format, f))
 			continue ;
 		else if (ft_check_minwidth(format, ap, f))
 			continue ;
 		else if (ft_check_precision(ap, format, f))
+			continue ;
+		else if (ft_check_t_length(format, l))
 			continue ;
 		else
 			break ;

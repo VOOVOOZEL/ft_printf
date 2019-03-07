@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   identification_1.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 20:24:22 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 20:24:24 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
 char	*ft_pc(va_list *ap, t_flags *f, t_length *l)
@@ -97,8 +109,7 @@ char	*ft_px(va_list *ap, t_flags *f, t_length *l)
 		return (ft_strnew(0));
 	else if (type.u == 0)
 	{
-		s = ft_strnew(1);
-		s[0] = '0';
+		s = ft_strdup("0");
 		return (s);
 	}
 	s = ft_itoa_unsigned(type.u, 16);
@@ -108,6 +119,7 @@ char	*ft_px(va_list *ap, t_flags *f, t_length *l)
 	{
 		tmp = s;
 		s = ft_strjoin("0x", tmp);
+		free(tmp);
 	}
 	if (f->conv == 'X')
 		ft_toupper_s(s);

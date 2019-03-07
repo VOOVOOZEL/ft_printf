@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa_exp.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 20:35:52 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 20:36:50 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static char	*ft_zero(long double nbr, int k)
@@ -90,5 +102,5 @@ char		*ft_itoa_exp(long double nbr, int k)
 		return (ft_zero(nbr, k));
 	if (nbr < 1)
 		return (ft_count_power_neg(nbr, k, sign));
-	return (ft_count_power(nbr, k, sign));    
+	return (ft_count_power(nbr, k, sign));
 }

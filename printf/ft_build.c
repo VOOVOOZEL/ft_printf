@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_build.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbrown-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/07 20:31:09 by lbrown-b          #+#    #+#             */
+/*   Updated: 2019/03/07 20:31:10 by lbrown-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
 char	*ft_conv(va_list *ap, t_flags *f, t_length *l)
@@ -35,4 +47,13 @@ char	*ft_build(va_list *ap, t_flags *f, t_length *l)
 	s = ft_min_width(s, f);
 	s = ft_flags(s, f);
 	return (s);
+}
+
+void	ft_set_h(char **f, t_length *l)
+{
+	(*f)++;
+	if (**f == 'h')
+		l->hh = 1;
+	else
+		l->h = 1;
 }
